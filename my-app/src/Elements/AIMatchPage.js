@@ -73,16 +73,11 @@ const AIMatchPage = () => {
     const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
     const test = `say this is a test`;
     console.log("Prompt: ", prompt);
-    // Define the request payload
-    const payload = {
-      model: "gpt-3.5-turbo",
-      messages: [{ "role": "user", "content": test }],
-      temperature: 0.7
-    };
+
 
     try {
       // Make a POST request to the backend server
-      const response = await axios.post('http://localhost:3001/getCompletion', payload);
+      const response = await axios.post('http://localhost:3001/getAdvice', { prompt: prompt });
       console.log("API Response:", response.data);
 
       // Extract the assistant's message

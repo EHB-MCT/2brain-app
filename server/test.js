@@ -9,8 +9,12 @@ app.use(cors());
 const apiKey = "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";
 console.log("API Key:", apiKey);
 
+const axios = require('axios');
+const port = 3001;
 
-const axios = require('axios'); // if you're using Node.js, or import in the case of ES6
+app.use(cors());
+
+
 
 async function getOpenAICompletion(model, messages, temperature) {
   try {
@@ -31,18 +35,26 @@ async function getOpenAICompletion(model, messages, temperature) {
   }
 }
 
-const get4 = async () => {
+app.post('/getAdvice', async (req, res) => {
+  
   try {
     const model = "gpt-3.5-turbo";
-    const userNeeds = "I need an app that create images for me.";
+    
+    const userNeeds = req.body.prompt
+    console.log("User needs: ", userNeeds);
+    console.log("User needs promt: ", req.body);
+    console.log("User needs promt-2: ", req.body.prompt);
+    console.log("User needs promt-3: ", req.body.prompt[0]);
+    console.log("User needs promt-4: ", req.body.prompt[1]);
+
     const messages = [
       {
         "role": "system",
-        "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names"
+        "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names, nothing nore."
       },
       {
         "role": "user",
-        "content": userNeeds
+        "content": "${userNeeds}"
       },
     ];
     const temperature = 1;
@@ -58,13 +70,18 @@ const get4 = async () => {
     console.error('Error:', error);
     throw new Error(`Failed to retrieve data from API: ${error.message}`);
   }
-};
+});
 
-// Example of how to call get4 and handle its promise
-get4()
-  .then(response => {
-    console.log("Response from API ehhhhhhhhhh: ", response);
-  })
-  .catch(error => {
-    // Handle the error
-  });
+// // Example of how to call get4 and handle its promise
+
+//   .then(response => {
+//     console.log("Response from API ehhhhhhhhhh: ", response);
+//   })
+//   .catch(error => {
+//     // Handle the error
+//   });
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+

@@ -57,8 +57,8 @@ app.get('/testCompletion', async (req, res) => {
   }
 });
 
-function get4(){
-
+app.post('/getAdvice', async (req, res) => {
+  
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -78,18 +78,19 @@ function get4(){
       frequency_penalty: 0,
       presence_penalty: 0,
     });
-    return response.data;
+
     console.log("Data from API: ", JSON.stringify(response.data, null, 2));
-    console.log("Data from API: ", data);
-    const assistantMessage = data.choices[0].message.content;  
+    const assistantMessage = response.data.choices[0].message.content;  
     console.log("Assistant message: ", assistantMessage);
+
+    return response.data;
 
   } catch (error) { 
     console.error('Error:', error);
-    throw new Error('Internal Server Error');
+    throw new Error(`Failed to retrieve data from API: ${error.message}`);
   }
-
 });
+
 
 
 // New function to make the OpenAI request for AI tools recommendation
