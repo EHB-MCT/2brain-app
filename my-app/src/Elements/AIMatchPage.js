@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const cors = require('cors');
+
 
 
 const AIMatchPage = () => {
@@ -20,10 +22,12 @@ const AIMatchPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
     
     try {
       const response = await axios.post('http://localhost:3001/api/ai-response', {
-        prompt: "hello world",
+        prompt: prompt
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +41,32 @@ const AIMatchPage = () => {
     }
     
 };
+
+
+
+  const getCompletion = async () => {
+    // Define the request payload
+    const payload = {
+      model: "gpt-3.5-turbo",
+      messages: [{ "role": "user", "content": "Say this is a test!" }],
+      temperature: 0.7
+    };
+
+    try {
+      // Make a POST request to the backend server
+      const response = await axios.post('http://localhost:3001/getCompletion', payload);
+      console.log("API Response:", response.data);
+
+      // Extract the assistant's message
+      const assistantMessage = response.data.choices[0].message.content;
+      alert(`Assistant says: ${assistantMessage}`);
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong!");
+    }
+  };
+
 
 
 
@@ -83,6 +113,9 @@ const AIMatchPage = () => {
     </div>
     <button type="submit" className="btn btn-primary">Submit</button>
   </form>
+  <button onClick={getCompletion}>
+      Get Completion
+    </button>
 </div>
 
   );

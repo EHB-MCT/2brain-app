@@ -1,37 +1,58 @@
 const express = require('express');
-const OpenAI = require('openai');
-const cors = require('cors');
-
-
-
+const axios = require('axios');
 const app = express();
-
-app.use(express.json());
-
+const port = 3001;
+const cors = require('cors');
 app.use(cors());
 
-// const apiKey = "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";
-// const openai = new OpenAI(apiKey);
 
-app.post('/api/ai-response', async (req, res) => {
-  console.log("Received request:", req.body);
-  // try {
-  //   const prompt = req.body.prompt;
-  //   console.log("Received prompt:", prompt);
 
-  //   const aiResponse = await openai.createCompletion({
-  //     prompt: prompt,
-  //     max_tokens: 50
-  //   });
+app.use(express.json()); // Middleware for parsing JSON data
 
-  //   res.status(200).json(aiResponse.data.choices[0].text);
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send(error);
-  // }
+// Function to make request to OpenAI API
+async function getOpenAICompletion(model, messages, temperature) {
+  try {
+    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model,
+      messages,
+      temperature,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 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`, // Replace with your own API key
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw new Error('Internal Server Error');
+  }
+}
+
+app.post('/getCompletion', async (req, res) => {
+  const { model, messages, temperature } = req.body;
+  try {
+    const data = await getOpenAICompletion(model, messages, temperature);
+    res.json(data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.get('/testCompletion', async (req, res) => {
+  const model = 'gpt-3.5-turbo';
+  const messages = [{ "role": "user", "content": "Say this is a test!" }];
+  const temperature = 0.7;
+
+  try {
+    const data = await getOpenAICompletion(model, messages, temperature);
+    console.log('OpenAI API Response:', data);
+    res.json(data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
