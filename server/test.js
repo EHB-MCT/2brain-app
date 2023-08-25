@@ -47,25 +47,26 @@ app.post('/getAdvice', async (req, res) => {
     console.log("User needs promt-3: ", req.body.prompt[0]);
     console.log("User needs promt-4: ", req.body.prompt[1]);
 
-    const messages = [
-      {
-        "role": "system",
-        "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names, nothing nore."
-      },
-      {
-        "role": "user",
-        "content": "${userNeeds}"
-      },
-    ];
-    const temperature = 1;
+    // const messages = [
+    //   {
+    //     "role": "system",
+    //     "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names, nothing nore."
+    //   },
+    //   {
+    //     "role": "user",
+    //     "content": userNeeds
+    //   },
+    // ];
+    // const temperature = 1;
 
-    const response = await getOpenAICompletion(model, messages, temperature);
+    // const response = await getOpenAICompletion(model, messages, temperature);
     
-    console.log("Data from API: ", JSON.stringify(response, null, 2));
-    const assistantMessage = response.choices[0].message.content;  
-    console.log("Assistant message: ", assistantMessage);
+    // console.log("Data from API: ", JSON.stringify(response, null, 2));
+    // const assistantMessage = response.choices[0].message.content;  
+    // console.log("Assistant message: ", assistantMessage);
+    const assistantMessage = "1. Canva 2. Gravit Designer3. Inkscape";
 
-    return response;
+    res.json({ recommendation: assistantMessage }); 
   } catch (error) { 
     console.error('Error:', error);
     throw new Error(`Failed to retrieve data from API: ${error.message}`);

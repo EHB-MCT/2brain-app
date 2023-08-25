@@ -4,6 +4,7 @@ const cors = require('cors');
 
 
 
+
 const AIMatchPage = () => {
   const [formData, setFormData] = useState({
     task: '',
@@ -69,6 +70,8 @@ const AIMatchPage = () => {
   };
 
   const getAI = async (event) => {
+    
+    
     event.preventDefault();
     const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
     const test = `say this is a test`;
@@ -81,8 +84,10 @@ const AIMatchPage = () => {
       console.log("API Response:", response.data);
 
       // Extract the assistant's message
-      const assistantMessage = response.data.choices[0].message.content;
-      alert(`Assistant says: ${assistantMessage}`);
+      const assistantMessage = response.data;
+     
+      console.log("Assistant message front end : ", assistantMessage);
+      alert(`Assistant says: ${assistantMessage.recommendations}`);
 
     } catch (error) {
       console.error("Error:", error);
@@ -141,6 +146,19 @@ const AIMatchPage = () => {
   <button onClick={getCompletion}>
       Get Completion
     </button>
+    <div className="container">
+    {/* ...existing form JSX... */}
+    <div>
+      <h2>Recommended Apps:</h2>
+      <ul>
+        {recommendedApps.map((app, index) => (
+          <li key={index}>
+            <strong>{app.name}:</strong> {app.description}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 </div>
 
   );
