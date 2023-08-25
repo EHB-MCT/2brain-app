@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 const cors = require('cors');
 
@@ -12,6 +12,10 @@ const AIMatchPage = () => {
     budget: '',
     familiarity: ''
   });
+  
+  const [recommendedApps, setRecommendedApps] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,10 +73,25 @@ const AIMatchPage = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (!buttonClicked) return;  // Exit if the button was not clicked
+    const fetchData = async () => {
+     
+    };
+    fetchData();
+    setButtonClicked(false);  // Reset to default state
+  }, [buttonClicked, formData]);  // The effect depends on `buttonClicked` and `formData`
+  
   const getAI = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+  
+    setButtonClicked(true);
+
     
-    
-    event.preventDefault();
+  
     const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
     const test = `say this is a test`;
     console.log("Prompt: ", prompt);
@@ -85,13 +104,22 @@ const AIMatchPage = () => {
 
       // Extract the assistant's message
       const assistantMessage = response.data;
+       // Update the state variable
+
      
       console.log("Assistant message front end : ", assistantMessage);
-      alert(`Assistant says: ${assistantMessage.recommendations}`);
+      setRecommendedApps(response.data.recommendation.apps);
+       // Update the state variable
+ // Update the state variable
 
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong!");
+      console.error("Error fetching data:", error);
+  if (error.response) {
+    console.error("Data:", error.response.data);
+    console.error("Status:", error.response.status);
+    console.error("Headers:", error.response.headers);
+  }
+    
     }
   };
 
@@ -103,6 +131,7 @@ const AIMatchPage = () => {
   return (
 <div className="container">
   <h1 className="display-4">AI Match</h1>
+
   <form onSubmit={getAI}>
     <div className="mb-3">
       <label htmlFor="task" className="form-label">What is the task you want to fulfill?</label>
@@ -146,20 +175,29 @@ const AIMatchPage = () => {
   <button onClick={getCompletion}>
       Get Completion
     </button>
-    <div className="container">
-    {/* ...existing form JSX... */}
-    <div>
-      <h2>Recommended Apps:</h2>
-      <ul>
-        {recommendedApps.map((app, index) => (
-          <li key={index}>
-            <strong>{app.name}:</strong> {app.description}
-          </li>
-        ))}
-      </ul>
+   
+
+  <div className="container mt-5">
+    <h2>Recommended Apps:</h2>
+    <div className="row">
+      {recommendedApps.map((app, index) => (
+        <div key={index} className="col-md-4">
+          <div className="card mb-4">
+            <div className="card-header">
+              <strong>{app.name}</strong>
+            </div>
+            <div className="card-body">
+              <p className="card-text">{app.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </div>
+
+  
+
 
   );
 }

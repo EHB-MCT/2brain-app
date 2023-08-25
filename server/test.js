@@ -64,7 +64,22 @@ app.post('/getAdvice', async (req, res) => {
     // console.log("Data from API: ", JSON.stringify(response, null, 2));
     // const assistantMessage = response.choices[0].message.content;  
     // console.log("Assistant message: ", assistantMessage);
-    const assistantMessage = "1. Canva 2. Gravit Designer3. Inkscape";
+    const assistantMessage = {
+      "apps": [
+        {
+          "name": "Adobe Lightroom",
+          "description": "A powerful photo editing and organizing app, designed for photographers."
+        },
+        {
+          "name": "GIMP",
+          "description": "A free and open-source image editing software, with features comparable to Adobe Photoshop."
+        },
+        {
+          "name": "Pixlr",
+          "description": "An online photo editor with a wide range of editing tools and effects, suitable for both beginners and professionals."
+        }
+      ]
+    };
 
     res.json({ recommendation: assistantMessage }); 
   } catch (error) { 
