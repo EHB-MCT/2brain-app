@@ -10,39 +10,61 @@ const apiKey = "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";
 console.log("API Key:", apiKey);
 
 
+const axios = require('axios'); // if you're using Node.js, or import in the case of ES6
 
-
-const openai = new OpenAI(apiKey);
-
-app.post('/api/ai-response', async (req, res) => {
-  console.log("Received request:", req.body);
-  
+async function getOpenAICompletion(model, messages, temperature) {
   try {
-    const prompt = req.body.prompt;
-    const aiResponse = await openai.createCompletion({
-      engine: "davinci", // The engine model to use (adjust as needed)
-      prompt: prompt,
-      max_tokens: 50
+    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model,
+      messages,
+      temperature,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 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`, // Replace with your own API key
+      },
     });
-    
-    console.log("Response from API: ", aiResponse.data.choices[0].text);
-    res.json(aiResponse.data.choices[0].text);
-
+    return response.data;
   } catch (error) {
-    console.error(error);
-
-    // Handle different types of errors here
-    if (error.status === 429) {
-      res.status(429).json({ error: "Rate limit exceeded" });
-    } else if (error.status === 400) {
-      res.status(400).json({ error: "Bad request" });
-    } else {
-      res.status(500).send("Internal Server Error");
-    }
+    console.error('Error:', error);
+    throw new Error('Internal Server Error');
   }
-});
+}
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const get4 = async () => {
+  try {
+    const model = "gpt-3.5-turbo";
+    const userNeeds = "I need an app that create images for me.";
+    const messages = [
+      {
+        "role": "system",
+        "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names"
+      },
+      {
+        "role": "user",
+        "content": userNeeds
+      },
+    ];
+    const temperature = 1;
+
+    const response = await getOpenAICompletion(model, messages, temperature);
+    
+    console.log("Data from API: ", JSON.stringify(response, null, 2));
+    const assistantMessage = response.choices[0].message.content;  
+    console.log("Assistant message: ", assistantMessage);
+
+    return response;
+  } catch (error) { 
+    console.error('Error:', error);
+    throw new Error(`Failed to retrieve data from API: ${error.message}`);
+  }
+};
+
+// Example of how to call get4 and handle its promise
+get4()
+  .then(response => {
+    console.log("Response from API ehhhhhhhhhh: ", response);
+  })
+  .catch(error => {
+    // Handle the error
+  });

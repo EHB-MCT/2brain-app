@@ -22,25 +22,26 @@ const AIMatchPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
-    
+    const test = `say this is a test`;
+  
     try {
       const response = await axios.post('http://localhost:3001/api/ai-response', {
-        prompt: prompt
+        prompt: test
       }, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
-    
+  
       console.log("Data from API: ", response.data);
       
     } catch (error) {
       console.error("Error fetching recommendations:", error);
     }
-    
-};
+  };
+  
 
 
 
@@ -67,13 +68,42 @@ const AIMatchPage = () => {
     }
   };
 
+  const getAI = async (event) => {
+    event.preventDefault();
+    const prompt = `Based on the user's needs for ${formData.task} using ${formData.app} with a budget of ${formData.budget}, what AI tools would you recommend?`;
+    const test = `say this is a test`;
+    console.log("Prompt: ", prompt);
+    // Define the request payload
+    const payload = {
+      model: "gpt-3.5-turbo",
+      messages: [{ "role": "user", "content": test }],
+      temperature: 0.7
+    };
+
+    try {
+      // Make a POST request to the backend server
+      const response = await axios.post('http://localhost:3001/getCompletion', payload);
+      console.log("API Response:", response.data);
+
+      // Extract the assistant's message
+      const assistantMessage = response.data.choices[0].message.content;
+      alert(`Assistant says: ${assistantMessage}`);
+
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong!");
+    }
+  };
+
+
+  
 
 
 
   return (
 <div className="container">
   <h1 className="display-4">AI Match</h1>
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={getAI}>
     <div className="mb-3">
       <label htmlFor="task" className="form-label">What is the task you want to fulfill?</label>
       <select className="form-select" id="task" name="task" onChange={handleChange}>
