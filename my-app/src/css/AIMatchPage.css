@@ -4,8 +4,13 @@
   margin-bottom: 20px;
 }
 
+.aimatchpage-container
+{
+  padding: 200px;
+}
 /* Custom styling for cards */
 .custom-card {
+
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -13,16 +18,56 @@
   height: 400px; /* Add this to make the cards take the full height of their container */
   display: flex;
   flex-direction: column;
-}
+    transform: translateY(50px); /* Starts 50 pixels below */
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: slideInLeft .5s forwards ease-out .2s;
+
+    
+  }
+
+
+
+  
+  
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    80% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+
+  
+
+  .centered-title {
+   text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3em;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    background: -webkit-linear-gradient(45deg, rgba(255,0,150,1), rgba(0,204,255,1));
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 100px;
+    animation: fadeIn 2s;
+    
+  }
+  
 
 .custom-card-body {
   flex-grow: 1; /* Allows the body to take up all available space */
 }
 
-/* Hover effect */
-.custom-card:hover {
-  transform: scale(1.05);
-}
+
 
 /* Card Header */
 .custom-card-header {
@@ -50,25 +95,209 @@
 
 
 .button-container {
-  text-align: center;
-  margin-top: 20px; /* or any desired top margin */
-  margin-bottom: 20px; /* or any desired bottom margin */
-  
+  text-align: center ;
+  color: white;
+  margin-bottom: 40px;
 }
 
-.button-container > .btn.custom-submit {
-  background-color: rgb(128, 0, 128); /* Sets the background color to purple */
-  color: white; /* Sets the text color to white */
+.custom-submit {
+  background: linear-gradient(to right, rgba(128, 0, 128, 1), rgba(128, 0, 128, 0.7));
+  border: none;
+  color: white; 
+  padding: 12px 24px;
+  font-size: 1em;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-submit {
+  color: white !important;
+
+}
+
+
+.custom-submit:hover {
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  color: white;
+}
+.fieldset-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  height: 100%;
+  position: relative;
+}
+
+.question-number {
+  position: absolute;
+  top: -30px; /* Position above the card */
+  left: 50%; /* Center */
+  transform: translateX(-50%);
+  padding: 0 10px; /* Add some padding around the text */
+  color: gray; /* Make the text gray */
+}
+
+
+.fieldset-card h5 {
+  margin-top: 0;
+}
+
+.fieldset-card p {
+  margin-bottom: 15px;
 }
 
 .custom-h1 {
   font-weight: bold; /* Make the text bold */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   text-transform: uppercase; /* Convert text to all caps */
-  color: rgb(128, 53, 128); /* Sets the text color to purple */
+  color: rgb(128, 0, 128); /* Sets the text color to purple */
 }
 
 .custom-form {
-  width: 80%; /* Set the form width to 80% of the container */
+  width: 100%; /* Set the form width to 80% of the container */
   margin: 0 auto; /* Center the form horizontally */
+}
+
+.function-container{
+  padding: 150px 0px 150px 0px;
+
+}
+
+.form-check {
+  cursor: pointer;
+  border: none; /* Remove the border */
+  background: linear-gradient(to right, rgba(128, 0, 128, 0.8), rgba(128, 0, 128, 0.6));
+  color: white;
+  padding: 7px 13px; /* Increase padding */
+  margin: 10px 0; /* Add some margin between the element and the next one */
+  border-radius: 20px; /* Make corners more rounded */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: all 0.3s ease-in-out; /* Make transitions smoother */
+  position: relative;
+  text-align: center;
+
+}
+
+.form-check:hover {
+  background: linear-gradient(to right, rgba(128, 0, 128, 1), rgba(128, 0, 128, 0.8));
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add deeper shadow on hover */
+  transform: translateY(-3px); /* Lift the button a bit */
+}
+
+.form-check input[type="radio"] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.form-check input[type="radio"]:checked + label {
+  color: white; /* No change here as you wanted the text to remain white */
+}
+
+.form-check.selected {
+  background: linear-gradient(to right, rgba(128, 0, 128, 1), rgba(128, 0, 128, 0.9));
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add deeper shadow when selected */
+}
+
+.custom-form .form-check > label {
+  font-size: 0.75em; /* Increase font size for better readability */
+}
+
+
+
+.lines-wrapper {
+  position: relative;
+  height: 4px; /* The combined height of both lines */
+  margin-top: 100px;
+}
+
+.lines-wrapper::before,
+.lines-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%; /* Stops at the middle */
+  height: 2px; /* Height of each line */
+}
+
+.lines-wrapper::before {
+  left: 0;
+  background-color: orange;
+}
+
+.lines-wrapper::after {
+  right: 0;
+  background-color: purple;
+}
+
+
+
+@keyframes colorChange {
+  0% {
+    background-color: #800080;  /* Purple */
+  }
+  100% {
+    background-color: #FFA500;  /* Orange */
+  }
+}
+
+.scroll-down-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;  /* Make it circular */
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: absolute;  /* Use absolute positioning */
+  bottom: 30px;  /* 30px above the bottom */
+  right: 50%;  /* Center it horizontally */
+  transform: translateX(50%);  /* For exact centering */
+  z-index: 1000;  /* Make sure it's on top */
+  animation: colorChange 3s infinite alternate;  /* Apply animation */
+}
+
+
+/* Create downward-pointing triangle inside the button */
+.scroll-down-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid white;
+  transform: translate(-50%, -50%);
+}
+
+#left-side-image {
+  position: absolute;
+  left: 0;
+  top: 15%;
+  z-index: 999; /* Make sure it's on top */
+  width: auto; 
+  height: 700px; /* Adjust the height */
+
+
+}
+
+#right-side-image {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  z-index: 999; /* Make sure it's on top */
+  width: auto; 
+  height: 600px; /* Adjust the height */
+
+
 }

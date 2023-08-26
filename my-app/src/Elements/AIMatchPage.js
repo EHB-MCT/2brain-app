@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/AIMatchPage.css';
+import left from '../assets/images/rightB.png';
+import right from '../assets/images/leftB.png';
 const cors = require('cors');
 
 
@@ -21,6 +23,14 @@ const AIMatchPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    document.querySelectorAll(`input[name=${name}]`).forEach((radio) => {
+      radio.closest('.form-check').classList.remove('selected');
+    });
+  
+    // Add selected class to the parent of the clicked radio button
+    e.target.closest('.form-check').classList.add('selected');
+  
     setFormData({
       ...formData,
       [name]: value
@@ -88,6 +98,7 @@ const AIMatchPage = () => {
   const getAI = async (event) => {
     if (event) {
       event.preventDefault();
+      
     }
   
     setButtonClicked(true);
@@ -124,25 +135,45 @@ const AIMatchPage = () => {
     
     }
   };
-
+  const scrollToBottom = () => {
+    window.scrollBy({
+      top: window.innerHeight,  // Scroll down by the view height of the window
+      behavior: 'smooth'  // Smooth scrolling
+    });
+  }
 
   
 
 
 
   return (
-    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-<div className="container aimatchpage-container ">
 
-<div className="text-center" style={{ marginBottom: '200px' }}> {/* Added inline style for margin-bottom */}
+
+    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+  
+ <img id="left-side-image" src={right} alt="Your Image"  />
+ <img id="right-side-image" src={left} alt="Your Image"  />
+
+<div className="aimatchpage-container ">
+
+<div className="text-center" style={{ marginBottom: '400px' }}> {/* Added inline style for margin-bottom */}
   <h1 className="display-4 pt-5 custom-h1">Access the flow</h1>
   <p className="lead mt-3">Welcome to the AI-Matchmaker, your personalized AI tool recommender.</p> {/* Introduction text */}
   <p className="mt-3">Answer a few simple questions to get AI tool recommendations tailored to your needs.</p> {/* Explanation text */}
-</div>
+  {/* <div className="lines-wrapper"></div> */}
+  <button id="scrollDownButton" className="scroll-down-button" onClick={scrollToBottom}>
 
+  <div className="triangle"></div>
+</button>
+</div>
+<div className="container function-container">
+<h1 class="centered-title">Programs for you</h1>
 <form onSubmit={getAI} className="custom-form">
+
   <div className="row">
     <div className="col-md-4 mb-3">
+    <div className="fieldset-card">
+    <div className="question-number">Question 1</div>
       <fieldset>
         <h5>PURPOSE</h5>
         <p>What kind of task you want to be able to fulfill with the AI program?</p>
@@ -159,14 +190,29 @@ const AIMatchPage = () => {
               <label className="form-check-label" htmlFor="imageCreation">Image Creation</label>
             </div>
           </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="Data Analyse" value="Data Analyse" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="Data Analyse">Data Analyse</label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="Copy writing" value="Copy writing" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="Copy writing">Copy writing</label>
+            </div>
+          </div>
         </div>
       </fieldset>
     </div>
+    </div>
 
     <div className="col-md-4 mb-3">
+    <div className="fieldset-card">
+    <div className="question-number">Question 2</div>
       <fieldset>
       <h5>PROGRAM</h5>
-        <p>Which app are you are you currenlty using or fits best to the one that you would use?</p>
+        <p>Which app are you  currenlty using/fits best to the one that you would use?</p>
         <div className="row">
           <div className="col-6">
             <div className="form-check">
@@ -180,11 +226,15 @@ const AIMatchPage = () => {
               <label className="form-check-label" htmlFor="excel">Excel</label>
             </div>
           </div>
+          
         </div>
       </fieldset>
     </div>
+    </div>
 
     <div className="col-md-4 mb-3">
+    <div className="fieldset-card">
+    <div className="question-number">Question 3</div>
       <fieldset>
       <h5>BUDGET</h5>
         <p>What is the budget you are willing to spend to use a new program?</p>
@@ -205,6 +255,7 @@ const AIMatchPage = () => {
       </fieldset>
     </div>
   </div>
+  </div>
   <div className="button-container">
   <button type="submit" className="btn custom-submit">SHOW ME</button>
 </div>
@@ -215,9 +266,11 @@ const AIMatchPage = () => {
 
 
 <div className="container mt-5">
-  <h2 className="recommended-apps-title">Recommended Apps:</h2>
+
+
   <div className="row">
     {recommendedApps.map((app, index) => (
+      
       <div key={index} className="col-md-4 d-flex align-items-stretch">
         <div className="card custom-card mb-4">
           <div className="card-header custom-card-header">
@@ -230,11 +283,13 @@ const AIMatchPage = () => {
       </div>
     ))}
   </div>
+  
 </div>
 
 </div>
 </div>
 
+</div>
   
 
 
