@@ -1,0 +1,74 @@
+/* Recommended Apps title */
+.recommended-apps-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Custom styling for cards */
+.custom-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform .2s ease-in-out;
+  height: 400px; /* Add this to make the cards take the full height of their container */
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-card-body {
+  flex-grow: 1; /* Allows the body to take up all available space */
+}
+
+/* Hover effect */
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+/* Card Header */
+.custom-card-header {
+  background-color: #f5f5f5;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.2em;
+}
+
+/* Card Body */
+.custom-card-body {
+  padding: 20px;
+}
+
+/* Card Text */
+.custom-card-text {
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+
+
+.button-container {
+  text-align: center;
+  margin-top: 20px; /* or any desired top margin */
+  margin-bottom: 20px; /* or any desired bottom margin */
+  
+}
+
+.button-container > .btn.custom-submit {
+  background-color: rgb(128, 0, 128); /* Sets the background color to purple */
+  color: white; /* Sets the text color to white */
+}
+
+.custom-h1 {
+  font-weight: bold; /* Make the text bold */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-transform: uppercase; /* Convert text to all caps */
+  color: rgb(128, 53, 128); /* Sets the text color to purple */
+}
+
+.custom-form {
+  width: 80%; /* Set the form width to 80% of the container */
+  margin: 0 auto; /* Center the form horizontally */
+}

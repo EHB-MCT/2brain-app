@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../css/AIMatchPage.css';
 const cors = require('cors');
+
 
 
 
@@ -129,93 +131,108 @@ const AIMatchPage = () => {
 
 
   return (
-    
-<div className="container">
-  <h1 className="display-4">AI Match</h1>
+    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+<div className="container aimatchpage-container ">
 
-  <form onSubmit={getAI}>
-    <div className="row">
-      <div className="col-md-6 mb-3"> {/* This div will take up 50% of the row on medium to large screens */}
-        <fieldset>
-          <legend>What is the task you want to fulfill?</legend>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="task" id="videoCreation" value="Video Creation" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="videoCreation">Video Creation</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="task" id="imageCreation" value="Image Creation" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="imageCreation">Image Creation</label>
-          </div>
-          {/* ... Add more options here */}
-        </fieldset>
-      </div>
-      <div className="col-md-6 mb-3"> {/* This div will take up the remaining 50% of the row on medium to large screens */}
-        <fieldset>
-          <legend>Which app do you already use for this task?</legend>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="app" id="adobeIllustrator" value="Adobe Illustrator" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="adobeIllustrator">Adobe Illustrator</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="app" id="excel" value="Excel" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="excel">Excel</label>
-          </div>
-          {/* ... Add more options here */}
-        </fieldset>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-md-6 mb-3">
-        <fieldset>
-          <legend>What is your budget?</legend>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="budget" id="free" value="Free" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="free">Free</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="budget" id="midrange" value="Midrange" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="midrange">Midrange</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="budget" id="high" value="High" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="high">High</label>
-          </div>
-        </fieldset>
-      </div>
-      <div className="col-md-6 mb-3">
-        <fieldset>
-          <legend>Are you already familiar with AI?</legend>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="familiarity" id="yes" value="Yes" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="yes">Yes</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="familiarity" id="no" value="No" onChange={handleChange} />
-            <label className="form-check-label" htmlFor="no">No</label>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
-  </form>
+<div className="text-center" style={{ marginBottom: '200px' }}> {/* Added inline style for margin-bottom */}
+  <h1 className="display-4 pt-5 custom-h1">Access the flow</h1>
+  <p className="lead mt-3">Welcome to the AI-Matchmaker, your personalized AI tool recommender.</p> {/* Introduction text */}
+  <p className="mt-3">Answer a few simple questions to get AI tool recommendations tailored to your needs.</p> {/* Explanation text */}
+</div>
 
-  <div className="container mt-5">
-    <h2>Recommended Apps:</h2>
-    <div className="row">
-      {recommendedApps.map((app, index) => (
-        <div key={index} className="col-md-4">
-          <div className="card mb-4">
-            <div className="card-header">
-              <strong>{app.name}</strong>
+<form onSubmit={getAI} className="custom-form">
+  <div className="row">
+    <div className="col-md-4 mb-3">
+      <fieldset>
+        <h5>PURPOSE</h5>
+        <p>What kind of task you want to be able to fulfill with the AI program?</p>
+        <div className="row">
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="task" id="videoCreation" value="Video Creation" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="videoCreation">Video Creation</label>
             </div>
-            <div className="card-body">
-              <p className="card-text">{app.description}</p>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="task" id="imageCreation" value="Image Creation" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="imageCreation">Image Creation</label>
             </div>
           </div>
         </div>
-      ))}
+      </fieldset>
+    </div>
+
+    <div className="col-md-4 mb-3">
+      <fieldset>
+      <h5>PROGRAM</h5>
+        <p>Which app are you are you currenlty using or fits best to the one that you would use?</p>
+        <div className="row">
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="adobeIllustrator" value="Adobe Illustrator" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="adobeIllustrator">Adobe Illustrator</label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="excel" value="Excel" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="excel">Excel</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div className="col-md-4 mb-3">
+      <fieldset>
+      <h5>BUDGET</h5>
+        <p>What is the budget you are willing to spend to use a new program?</p>
+        <div className="row">
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="budget" id="free" value="Free" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="free">Free</label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="budget" id="midrange" value="Midrange" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="midrange">Midrange</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
     </div>
   </div>
+  <div className="button-container">
+  <button type="submit" className="btn custom-submit">SHOW ME</button>
+</div>
+
+
+
+</form>
+
+
+<div className="container mt-5">
+  <h2 className="recommended-apps-title">Recommended Apps:</h2>
+  <div className="row">
+    {recommendedApps.map((app, index) => (
+      <div key={index} className="col-md-4 d-flex align-items-stretch">
+        <div className="card custom-card mb-4">
+          <div className="card-header custom-card-header">
+            <strong className="card-title">{app.name}</strong>
+          </div>
+          <div className="card-body custom-card-body">
+            <p className="card-text custom-card-text">{app.description}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+</div>
 </div>
 
   
