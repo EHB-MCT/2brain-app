@@ -129,53 +129,75 @@ const AIMatchPage = () => {
 
 
   return (
+    
 <div className="container">
   <h1 className="display-4">AI Match</h1>
 
   <form onSubmit={getAI}>
-    <div className="mb-3">
-      <label htmlFor="task" className="form-label">What is the task you want to fulfill?</label>
-      <select className="form-select" id="task" name="task" onChange={handleChange}>
-        <option value="">Select task</option>
-        <option value="Video Creation">Video Creation</option>
-        <option value="Image Creation">Image Creation</option>
-        <option value="Copywriting">Copywriting</option>
-        <option value="Data Analysis">Data Analysis</option>
-      </select>
+    <div className="row">
+      <div className="col-md-6 mb-3"> {/* This div will take up 50% of the row on medium to large screens */}
+        <fieldset>
+          <legend>What is the task you want to fulfill?</legend>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="task" id="videoCreation" value="Video Creation" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="videoCreation">Video Creation</label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="task" id="imageCreation" value="Image Creation" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="imageCreation">Image Creation</label>
+          </div>
+          {/* ... Add more options here */}
+        </fieldset>
+      </div>
+      <div className="col-md-6 mb-3"> {/* This div will take up the remaining 50% of the row on medium to large screens */}
+        <fieldset>
+          <legend>Which app do you already use for this task?</legend>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="app" id="adobeIllustrator" value="Adobe Illustrator" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="adobeIllustrator">Adobe Illustrator</label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="app" id="excel" value="Excel" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="excel">Excel</label>
+          </div>
+          {/* ... Add more options here */}
+        </fieldset>
+      </div>
     </div>
-    <div className="mb-3">
-      <label htmlFor="app" className="form-label">Which app do you already use for this task?</label>
-      <select className="form-select" id="app" name="app" onChange={handleChange}>
-        <option value="">Select app</option>
-        <option value="Adobe Illustrator">Adobe Illustrator</option>
-        <option value="Excel">Excel</option>
-        <option value="Premiere Pro">Premiere Pro</option>
-        {/* Add more options here */}
-      </select>
-    </div>
-    <div className="mb-3">
-      <label htmlFor="budget" className="form-label">What is your budget?</label>
-      <select className="form-select" id="budget" name="budget" onChange={handleChange}>
-        <option value="">Select budget</option>
-        <option value="Free">Free</option>
-        <option value="Midrange">Midrange</option>
-        <option value="High">High</option>
-      </select>
-    </div>
-    <div className="mb-3">
-      <label htmlFor="familiarity" className="form-label">Are you already familiar with AI?</label>
-      <select className="form-select" id="familiarity" name="familiarity" onChange={handleChange}>
-        <option value="">Select</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
+    <div className="row">
+      <div className="col-md-6 mb-3">
+        <fieldset>
+          <legend>What is your budget?</legend>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="budget" id="free" value="Free" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="free">Free</label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="budget" id="midrange" value="Midrange" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="midrange">Midrange</label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="budget" id="high" value="High" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="high">High</label>
+          </div>
+        </fieldset>
+      </div>
+      <div className="col-md-6 mb-3">
+        <fieldset>
+          <legend>Are you already familiar with AI?</legend>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="familiarity" id="yes" value="Yes" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="yes">Yes</label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="familiarity" id="no" value="No" onChange={handleChange} />
+            <label className="form-check-label" htmlFor="no">No</label>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <button type="submit" className="btn btn-primary">Submit</button>
   </form>
-  <button onClick={getCompletion}>
-      Get Completion
-    </button>
-   
 
   <div className="container mt-5">
     <h2>Recommended Apps:</h2>
