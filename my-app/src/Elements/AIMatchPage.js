@@ -135,11 +135,21 @@ const AIMatchPage = () => {
     
     }
   };
-  const scrollToBottom = () => {
-    window.scrollBy({
-      top: window.innerHeight,  // Scroll down by the view height of the window
-      behavior: 'smooth'  // Smooth scrolling
-    });
+  const scrollToQuestions = () => {
+    const questionsDiv = document.querySelector('.container.function-container');
+    if (questionsDiv) {
+      questionsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
+  const scrollToCards = () => {
+    setTimeout(() => {
+      const cards = document.querySelectorAll('.custom-card');
+      if (cards && cards.length > 0) {
+        const lastCard = cards[cards.length - 1];
+        lastCard.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300)
   }
 
   
@@ -161,12 +171,13 @@ const AIMatchPage = () => {
   <p className="lead mt-3">Welcome to the AI-Matchmaker, your personalized AI tool recommender.</p> {/* Introduction text */}
   <p className="mt-3">Answer a few simple questions to get AI tool recommendations tailored to your needs.</p> {/* Explanation text */}
   {/* <div className="lines-wrapper"></div> */}
-  <button id="scrollDownButton" className="scroll-down-button" onClick={scrollToBottom}>
+  <button id="scrollDownButton" className="scroll-down-button" onClick={scrollToQuestions}>
 
   <div className="triangle"></div>
 </button>
 </div>
 <div className="container function-container">
+<div className="questions-container">
 <h1 class="centered-title">Programs for you</h1>
 <form onSubmit={getAI} className="custom-form">
 
@@ -192,13 +203,13 @@ const AIMatchPage = () => {
           </div>
           <div className="col-6">
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="app" id="Data Analyse" value="Data Analyse" onChange={handleChange} />
+              <input className="form-check-input" type="radio" name="task" id="Data Analyse" value="Data Analyse" onChange={handleChange} />
               <label className="form-check-label" htmlFor="Data Analyse">Data Analyse</label>
             </div>
           </div>
           <div className="col-6">
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="app" id="Copy writing" value="Copy writing" onChange={handleChange} />
+              <input className="form-check-input" type="radio" name="task" id="Copy writing" value="Copy writing" onChange={handleChange} />
               <label className="form-check-label" htmlFor="Copy writing">Copy writing</label>
             </div>
           </div>
@@ -217,13 +228,25 @@ const AIMatchPage = () => {
           <div className="col-6">
             <div className="form-check">
               <input className="form-check-input" type="radio" name="app" id="adobeIllustrator" value="Adobe Illustrator" onChange={handleChange} />
-              <label className="form-check-label" htmlFor="adobeIllustrator">Adobe Illustrator</label>
+              <label className="form-check-label" htmlFor="adobeIllustrator">Adobe Illustr.</label>
             </div>
           </div>
           <div className="col-6">
             <div className="form-check">
               <input className="form-check-input" type="radio" name="app" id="excel" value="Excel" onChange={handleChange} />
               <label className="form-check-label" htmlFor="excel">Excel</label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="Photoshop" value="Photoshop" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="Photoshop">Photoshop</label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="app" id="Word" value="Word" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="Word">Word</label>
             </div>
           </div>
           
@@ -251,21 +274,28 @@ const AIMatchPage = () => {
               <label className="form-check-label" htmlFor="midrange">Midrange</label>
             </div>
           </div>
+          <div className="col-6">
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="budget" id="High" value="High" onChange={handleChange} />
+              <label className="form-check-label" htmlFor="High">High</label>
+            </div>
+          </div>
+     
         </div>
       </fieldset>
     </div>
   </div>
   </div>
   <div className="button-container">
-  <button type="submit" className="btn custom-submit">SHOW ME</button>
+  <button onClick={scrollToCards} type="submit" className="btn custom-submit">SHOW ME</button>
 </div>
 
 
 
 </form>
+</div>
 
-
-<div className="container mt-5">
+<div className="container mt-5" >
 
 
   <div className="row">
@@ -273,17 +303,25 @@ const AIMatchPage = () => {
       
       <div key={index} className="col-md-4 d-flex align-items-stretch">
         <div className="card custom-card mb-4">
-          <div className="card-header custom-card-header">
+          <div className="custom-card-header">
             <strong className="card-title">{app.name}</strong>
           </div>
           <div className="card-body custom-card-body">
             <p className="card-text custom-card-text">{app.description}</p>
+            <p className="card-text custom-card-text"></p>
+  <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="custom-card-button">Let's go</a>
+
           </div>
+        
+ 
         </div>
+
       </div>
+      
     ))}
+    
   </div>
-  
+
 </div>
 
 </div>

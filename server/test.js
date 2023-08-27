@@ -77,7 +77,20 @@ app.post('/getAdvice', async (req, res) => {
         {
           "name": "Pixlr",
           "description": "An online photo editor with a wide range of editing tools and effects, suitable for both beginners and professionals."
+        }, 
+        {
+          "name": "Adobe Lightroom",
+          "description": "A powerful photo editing and organizing app, designed for photographers."
+        },
+        {
+          "name": "GIMP",
+          "description": "A free and open-source image editing software, with features comparable to Adobe Photoshop."
+        },
+        {
+          "name": "Pixlr",
+          "description": "An online photo editor with a wide range of editing tools and effects, suitable for both beginners and professionals."
         }
+        
       ]
     };
 
