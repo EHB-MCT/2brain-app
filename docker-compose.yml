@@ -9,9 +9,13 @@ services:
     ports:
       - "3000:3000"
   db:
-    image: postgres
+    image: postgres:latest
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -21,3 +25,11 @@ services:
       - "8080:80"
     depends_on:
       - db
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_CLEANUP: 'true'  # delete old images
+      WATCHTOWER_POLL_INTERVAL: 300  # check for updates every 5 minutes
+    restart: always
