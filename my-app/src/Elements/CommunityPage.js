@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 
 const CommunityPage = () => {
 
+
+
+  
+
   const communityApps = [
     {
       id: 1,
@@ -81,6 +85,7 @@ const CommunityPage = () => {
       <h1 className="community-title">Discover the world of AI together</h1>
       <p className="community-guide">These are the AI programs highlighted by us. Look around for inspiration. </p>
     </div>
+ 
 
       <div className="community-page-grid">
         {communityApps.map((app, index) => (

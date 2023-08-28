@@ -64,6 +64,10 @@ const AppDetailPage = () => {
     <div className="app-detail-page">
       <h1 className="app-detail-page-title">{appDetail.name}</h1>
       <p className="app-detail-page-description">{appDetail.description}</p>
+      <a href="mailto:newworks@community2B.com?subject=New Work Submission" className="submit-button">
+  <button className='send'>Submit yours</button>
+</a>
+
       <div className="project-cards">
         {projects.map((project, index) => (
           <div className="project-card" key={index}>
