@@ -1,6 +1,7 @@
 const express = require('express');
 const OpenAI = require('openai');
 const cors = require('cors');
+const db = require('./db');
 
 const app = express();
 app.use(express.json());
@@ -14,7 +15,21 @@ const port = 3001;
 
 app.use(cors());
 
+app.post('/create-user', async (req, res) => {
 
+
+  const createUser = async (username, email, password) => {
+    try {
+      const result = await db.query(
+        'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+        [username, email, password]
+      );
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Failed to insert new user: ${error.message}`);
+    }
+  };
+});
 
 async function getOpenAICompletion(model, messages, temperature) {
   try {
@@ -57,50 +72,50 @@ app.post('/getAdvice', async (req, res) => {
         "content": userNeeds
       },
     ];
-    // const temperature = 1;
+    const temperature = 1;
 
-    // const response = await getOpenAICompletion(model, messages, temperature);
+    const response = await getOpenAICompletion(model, messages, temperature);
     
-    // console.log("Data from API: ", JSON.stringify(response, null, 2));
-    // const assistantMessage = JSON.parse(response.choices[0].message.content);
-    // console.log("Assistant message: ", assistantMessage);
-    const assistantMessage = {
-      "apps": [
+    console.log("Data from API: ", JSON.stringify(response, null, 2));
+    const assistantMessage = JSON.parse(response.choices[0].message.content);
+    console.log("Assistant message: ", assistantMessage);
+    // const assistantMessage = {
+    //   "apps": [
         
-            {
-              name: 'Adobe Illustrator',
-              description: 'Adobe Illustrator is a vector graphics editor that can be used to create high-quality video animations and motion graphics. It offers a wide range of tools and features for creating stunning visuals.',
-              link: 'https://www.adobe.com/products/illustrator.html'
-            },
-            {
-              name: 'Powtoon',
-              description: 'Powtoon is a cloud-based platform that enables users to create animated videos and presentations with ease. It offers a variety of pre-designed templates, characters, and animation effects to make video creation a breeze.',
-              link: 'https://www.powtoon.com/'
-            },
-            {
-              name: 'Vyond',
-              description: 'Vyond (formerly GoAnimate) is an online video animation tool that allows users to create professional animated videos without the need for advanced design skills. It offers a library of customizable characters, templates, and drag-and-drop features to simplify the video creation process.',
-              link: 'https://www.vyond.com/'
-            },
-            {
-              name: 'Animaker',
-              description: 'Animaker is a DIY animation software that enables users to create animated videos, infographics, and other visual content. It offers a user-friendly interface, a wide range of pre-animated characters, and a variety of customizable templates to help users bring their ideas to life.',
-              link: 'https://www.animaker.com/'
-            },
-            {
-              name: 'Moovly',
-              description: 'Moovly is an online video creation platform that allows users to create animated videos, presentations, and other multimedia content. It offers a library of templates, stock images, and audio files, as well as a drag-and-drop interface for easy video editing.',
-              link: 'https://www.moovly.com/'
-            },
-            {
-              name: 'Biteable',
-              description: 'Biteable is a video maker that enables users to create professional-looking videos using customizable templates, animated scenes, and stock footage. It offers a simple drag-and-drop interface and a library of ready-to-use assets for quick and easy video creation.',
-              link: 'https://biteable.com/'
-            }
+    //         {
+    //           name: 'Adobe Illustrator',
+    //           description: 'Adobe Illustrator is a vector graphics editor that can be used to create high-quality video animations and motion graphics. It offers a wide range of tools and features for creating stunning visuals.',
+    //           link: 'https://www.adobe.com/products/illustrator.html'
+    //         },
+    //         {
+    //           name: 'Powtoon',
+    //           description: 'Powtoon is a cloud-based platform that enables users to create animated videos and presentations with ease. It offers a variety of pre-designed templates, characters, and animation effects to make video creation a breeze.',
+    //           link: 'https://www.powtoon.com/'
+    //         },
+    //         {
+    //           name: 'Vyond',
+    //           description: 'Vyond (formerly GoAnimate) is an online video animation tool that allows users to create professional animated videos without the need for advanced design skills. It offers a library of customizable characters, templates, and drag-and-drop features to simplify the video creation process.',
+    //           link: 'https://www.vyond.com/'
+    //         },
+    //         {
+    //           name: 'Animaker',
+    //           description: 'Animaker is a DIY animation software that enables users to create animated videos, infographics, and other visual content. It offers a user-friendly interface, a wide range of pre-animated characters, and a variety of customizable templates to help users bring their ideas to life.',
+    //           link: 'https://www.animaker.com/'
+    //         },
+    //         {
+    //           name: 'Moovly',
+    //           description: 'Moovly is an online video creation platform that allows users to create animated videos, presentations, and other multimedia content. It offers a library of templates, stock images, and audio files, as well as a drag-and-drop interface for easy video editing.',
+    //           link: 'https://www.moovly.com/'
+    //         },
+    //         {
+    //           name: 'Biteable',
+    //           description: 'Biteable is a video maker that enables users to create professional-looking videos using customizable templates, animated scenes, and stock footage. It offers a simple drag-and-drop interface and a library of ready-to-use assets for quick and easy video creation.',
+    //           link: 'https://biteable.com/'
+    //         }
        
         
-      ]
-    };
+    //   ]
+    // };
     
 
     res.json({ recommendation: assistantMessage }); 
