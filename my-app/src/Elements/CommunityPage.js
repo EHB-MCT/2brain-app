@@ -76,7 +76,12 @@ const CommunityPage = () => {
   
     return (
       <div className="community-page-container">
-      <h1 className="community-page-title">Discover together the world of AI</h1>
+  
+      <div className="community-container" id="appsForYouSection">
+      <h1 className="community-title">Discover the world of AI together</h1>
+      <p className="community-guide">These are the AI programs highlighted by us. Look around for inspiration. </p>
+    </div>
+
       <div className="community-page-grid">
         {communityApps.map((app, index) => (
           <div className="app-card" key={index}>

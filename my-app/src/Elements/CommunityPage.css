@@ -28,6 +28,7 @@
     cursor: pointer;
     transition: transform 0.3s ease;
     text-align: center;
+    animation: fadeIn 2s; 
   }
   
   .app-card:hover {
@@ -96,21 +97,28 @@
     bottom: 10px;
   }
 
+  
+  .community-guide {
+    font-size: 1.1rem;
+    color: #555555c4;
+    animation: fadeIn 1.5s; 
+  }
 
-
+  .community-container{
+    padding-bottom: 50px;
+  }
   
 
-  .community-page-title {
+  .community-title {
     text-align: center;
      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
      font-size: 3em;
-     margin-bottom: 20px;
      letter-spacing: 1px;
      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
      background: -webkit-linear-gradient(45deg, rgba(128,0,128,1), rgba(0, 204, 255, 0.399));
      -webkit-background-clip: text;
      color: transparent;
-     margin-bottom: 100px;
-     animation: fadeIn 2s;
+
+     animation: fadeIn 1.3s;
      
    }

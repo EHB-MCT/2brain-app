@@ -20,6 +20,7 @@ const AIMatchPage = () => {
   
   const [recommendedApps, setRecommendedApps] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [showRecommendations, setShowRecommendations] = useState(false);
 
 
   const handleChange = (e) => {
@@ -103,6 +104,7 @@ const AIMatchPage = () => {
     }
   
     setButtonClicked(true);
+    setShowRecommendations(true);
 
     
   
@@ -140,18 +142,22 @@ const AIMatchPage = () => {
     const questionsDiv = document.querySelector('.container.function-container');
     if (questionsDiv) {
       questionsDiv.scrollIntoView({ behavior: 'smooth' });
+      window.scrollBy(0, 1100);
     }
   };
-  
+ 
   const scrollToCards = () => {
     setTimeout(() => {
       const cards = document.querySelectorAll('.custom-card');
       if (cards && cards.length > 0) {
         const lastCard = cards[cards.length - 1];
         lastCard.scrollIntoView({ behavior: 'smooth' });
+        window.scrollBy(0, 800);
       }
-    }, 300)
+    }, 5)
   }
+  
+
 
   
 
@@ -169,17 +175,21 @@ const AIMatchPage = () => {
 
 <div className="text-center" style={{ marginBottom: '400px' }}> {/* Added inline style for margin-bottom */}
   <h1 className="display-4 pt-5 custom-h1">Access the flow</h1>
-  <p className="lead mt-3">Welcome to the AI-Matchmaker, your personalized AI tool recommender.</p> {/* Introduction text */}
-  <p className="mt-3">Answer a few simple questions to get AI tool recommendations tailored to your needs.</p> {/* Explanation text */}
-  {/* <div className="lines-wrapper"></div> */}
-  <button id="scrollDownButton" className="scroll-down-button" onClick={scrollToQuestions}>
+  <p className="lead mt-3">Welcome to the 2Brains - Bringing AI to you</p> {/* Introduction text */}
+  <button id="scrollDownButton" className='start' onClick={scrollToQuestions}>
 
-  <div className="triangle"></div>
+Let's start
 </button>
+
+
 </div>
 <div className="container function-container">
 <div className="questions-container">
-<h1 class="centered-title">Programs for you</h1>
+
+<div className="question-container">
+      <h1 className="centered-title">QUESTIONS FOR YOU</h1>
+      <p className="question-guide">Please select 1 option per question that the fits best with your situation.</p>
+    </div>
 <form onSubmit={getAI} className="custom-form">
 
   <div className="row">
@@ -296,7 +306,17 @@ const AIMatchPage = () => {
 </form>
 </div>
 
+
 <div className="container mt-5" >
+{showRecommendations && (
+  <div className="container mt-5">
+    <div className="question-container" id="appsForYouSection">
+      <h1 className="centered-title">APPS FOR YOU</h1>
+      <p className="question-guide">These are the apps we recommend you based on your needs.</p>
+    </div>
+
+  </div>
+)}
 
 
   <div className="row">
@@ -310,7 +330,7 @@ const AIMatchPage = () => {
           <div className="card-body custom-card-body">
             <p className="card-text custom-card-text">{app.description}</p>
             <p className="card-text custom-card-text"></p>
-  <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="custom-card-button">Let's go</a>
+  <a href={app.link} target="_blank" rel="noopener noreferrer" className="custom-card-button">Let's go</a>
 
           </div>
         

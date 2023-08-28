@@ -47,52 +47,61 @@ app.post('/getAdvice', async (req, res) => {
     console.log("User needs promt-3: ", req.body.prompt[0]);
     console.log("User needs promt-4: ", req.body.prompt[1]);
 
-    // const messages = [
-    //   {
-    //     "role": "system",
-    //     "content": "You're an Artificial intelligence program adviser, give 3 apps based on the users needs, only the names, nothing nore."
-    //   },
-    //   {
-    //     "role": "user",
-    //     "content": userNeeds
-    //   },
-    // ];
+    const messages = [
+      {
+        "role": "system",
+        "content": "You're an Artificial intelligence program adviser, give 6 apps based on the users needs. answer back with the name, description (Max 3 sentences) en google search link with name after. you're answer will be in a json array called apps,  each app will be returned in a json object containing. name, description and link. "
+      },
+      {
+        "role": "user",
+        "content": userNeeds
+      },
+    ];
     // const temperature = 1;
 
     // const response = await getOpenAICompletion(model, messages, temperature);
     
     // console.log("Data from API: ", JSON.stringify(response, null, 2));
-    // const assistantMessage = response.choices[0].message.content;  
+    // const assistantMessage = JSON.parse(response.choices[0].message.content);
     // console.log("Assistant message: ", assistantMessage);
     const assistantMessage = {
       "apps": [
-        {
-          "name": "Adobe Lightroom",
-          "description": "A powerful photo editing and organizing app, designed for photographers."
-        },
-        {
-          "name": "GIMP",
-          "description": "A free and open-source image editing software, with features comparable to Adobe Photoshop."
-        },
-        {
-          "name": "Pixlr",
-          "description": "An online photo editor with a wide range of editing tools and effects, suitable for both beginners and professionals."
-        }, 
-        {
-          "name": "Adobe Lightroom",
-          "description": "A powerful photo editing and organizing app, designed for photographers."
-        },
-        {
-          "name": "GIMP",
-          "description": "A free and open-source image editing software, with features comparable to Adobe Photoshop."
-        },
-        {
-          "name": "Pixlr",
-          "description": "An online photo editor with a wide range of editing tools and effects, suitable for both beginners and professionals."
-        }
+        
+            {
+              name: 'Adobe Illustrator',
+              description: 'Adobe Illustrator is a vector graphics editor that can be used to create high-quality video animations and motion graphics. It offers a wide range of tools and features for creating stunning visuals.',
+              link: 'https://www.adobe.com/products/illustrator.html'
+            },
+            {
+              name: 'Powtoon',
+              description: 'Powtoon is a cloud-based platform that enables users to create animated videos and presentations with ease. It offers a variety of pre-designed templates, characters, and animation effects to make video creation a breeze.',
+              link: 'https://www.powtoon.com/'
+            },
+            {
+              name: 'Vyond',
+              description: 'Vyond (formerly GoAnimate) is an online video animation tool that allows users to create professional animated videos without the need for advanced design skills. It offers a library of customizable characters, templates, and drag-and-drop features to simplify the video creation process.',
+              link: 'https://www.vyond.com/'
+            },
+            {
+              name: 'Animaker',
+              description: 'Animaker is a DIY animation software that enables users to create animated videos, infographics, and other visual content. It offers a user-friendly interface, a wide range of pre-animated characters, and a variety of customizable templates to help users bring their ideas to life.',
+              link: 'https://www.animaker.com/'
+            },
+            {
+              name: 'Moovly',
+              description: 'Moovly is an online video creation platform that allows users to create animated videos, presentations, and other multimedia content. It offers a library of templates, stock images, and audio files, as well as a drag-and-drop interface for easy video editing.',
+              link: 'https://www.moovly.com/'
+            },
+            {
+              name: 'Biteable',
+              description: 'Biteable is a video maker that enables users to create professional-looking videos using customizable templates, animated scenes, and stock footage. It offers a simple drag-and-drop interface and a library of ready-to-use assets for quick and easy video creation.',
+              link: 'https://biteable.com/'
+            }
+       
         
       ]
     };
+    
 
     res.json({ recommendation: assistantMessage }); 
   } catch (error) { 

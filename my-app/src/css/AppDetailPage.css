@@ -1,0 +1,146 @@
+/* AppDetailPage Container */
+.app-detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Title */
+.app-detail-page-title {
+  font-size: 48px;
+  color: #333;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 3em;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  background: -webkit-linear-gradient(45deg, rgba(128,0,128,1), rgba(0, 204, 255, 0.399));
+  -webkit-background-clip: text;
+  color: transparent;
+
+  animation: fadeIn 2s;
+  padding-top: 30px;
+}
+
+/* Description */
+.app-detail-page-description {
+  font-size: 24px;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+
+
+
+.app-detail-page-gallery img:hover::before {
+  opacity: 1;
+}
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+/* Existing CSS */
+
+/* Project Cards */
+
+.project-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  width: 80%;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-main-image {
+  border-radius: 12px;
+  width: 30%;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+
+.fullscreen-image-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fullscreen-image-container img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+
+.project-author, .project-prompt, .project-edition {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.project-text {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.project-title {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.project-description {
+  font-size: 1.1rem;
+  color: #555;
+
+}
+.project-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  
+  
+}
+
+
+.thumbnail-container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 1; /* To ensure it appears above other content */
+}
+
+.thumbnail-image {
+  display: block;  /* Makes it a block element */
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;  /* Adds space between each thumbnail */
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
+.app-detail-page-description {
+  font-size: 1.1rem;
+  color: #555555c4;
+  animation: fadeIn 1.5s; 
+  
+}

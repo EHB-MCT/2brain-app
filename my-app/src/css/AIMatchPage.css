@@ -8,24 +8,26 @@
 {
   padding: 200px 170px 0px 170px;
 }
-/* Custom styling for cards */
+
+
 .custom-card {
-padding: 20px;
+  padding: 20px;
   border-radius: 12px;
-  border: 3px solid rgba(128, 0, 128, 0.7) !important;; 
+  border: 3px solid rgba(128, 0, 128, 0.7) !important;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform .2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 350px !important; /* Add this to make the cards take the full height of their container */
   display: flex;
   flex-direction: column;
-    transform: translateY(50px); /* Starts 50 pixels below */
-    opacity: 0;
-    transform: translateX(-50px);
-    animation: slideInLeft .5s forwards ease-out .2s;
+  opacity: 0; /* Starts with zero opacity */
+  
+  animation: fadeIn .5s forwards ease-out .2s; /* Applies the fade-in effect */
+}
 
-    
-  }
+.questions-container {
+  height: 700px;
+}
+
 
   .questions-container{
     height: 700px;
@@ -34,20 +36,15 @@ padding: 20px;
 
   
   
-  @keyframes slideInLeft {
+  @keyframes fadeIn {
     0% {
-      transform: translateX(-50px);
       opacity: 0;
     }
-    80% {
-      transform: translateX(10px);
-    }
     100% {
-      transform: translateX(0);
       opacity: 1;
     }
   }
-
+  
 
   
 
@@ -114,16 +111,30 @@ padding: 20px;
   text-align: center;
    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
    font-size: 3em;
-   margin-bottom: 20px;
+
    letter-spacing: 1px;
    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
    background: -webkit-linear-gradient(45deg, rgba(128,0,128,1), rgba(0, 204, 255, 0.399));
    -webkit-background-clip: text;
    color: transparent;
-   margin-bottom: 100px;
    animation: fadeIn 2s;
    
  }
+
+ .question-container {
+  text-align: center;
+  margin-bottom: 2rem; 
+  margin-bottom: 100px;
+  
+}
+
+
+
+.question-guide {
+  font-size: 1.1rem;
+  color: #555555c4;
+}
+
 
 .button-container {
   text-align: center ;
@@ -175,6 +186,8 @@ padding: 20px;
 }
 
 
+
+
 .fieldset-card h5 {
   margin-top: 0;
 }
@@ -187,7 +200,38 @@ padding: 20px;
   font-weight: bold; /* Make the text bold */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   text-transform: uppercase; /* Convert text to all caps */
-  color: rgb(128, 0, 128); /* Sets the text color to purple */
+  text-align: center;
+   font-size: 3em;
+   letter-spacing: 1px;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+   background: -webkit-linear-gradient(45deg, rgb(238, 155, 46), rgb(122, 0, 253));
+   -webkit-background-clip: text;
+   color: transparent;
+   animation: fadeIn 2s;/* Sets the text color to purple */
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: #555555c4;
+  animation: fadeIn 2s;
+}
+
+.leadm {
+  font-size: 0.9rem;
+  color: #555555c4;
+  animation: fadeIn 2s;
+}
+.start {
+  background: linear-gradient(to right, rgba(128, 0, 128, 1), rgba(128, 0, 128, 0.7));
+  border: none;
+  color: white; 
+  padding: 12px 24px;
+  font-size: 1em;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 100px;
 }
 
 .custom-form {
@@ -281,25 +325,25 @@ padding: 20px;
     background-color: #800080;  /* Purple */
   }
   100% {
-    background-color: #FFA500;  /* Orange */
+    background-color: #800080; 
   }
 }
 
 .scroll-down-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;  /* Make it circular */
+  width: 40px;  /* Smaller size */
+  height: 40px;  /* Smaller size */
+  border-radius: 50%;  
   color: white;
   border: none;
   cursor: pointer;
-  position: absolute;  /* Use absolute positioning */
-  bottom: 30px;  /* 30px above the bottom */
-  right: 50%;  /* Center it horizontally */
-  transform: translateX(50%);  /* For exact centering */
-  z-index: 1000;  /* Make sure it's on top */
-  animation: colorChange 3s infinite alternate;  /* Apply animation */
+  position: absolute;  
+  bottom: 30px;  
+  right: 50%;  
+  transform: translateX(50%);  
+  z-index: 1000;  
+  animation: colorChange 3s infinite alternate;  
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);  /* Added shadow */
 }
-
 
 /* Create downward-pointing triangle inside the button */
 .scroll-down-button:after {
@@ -309,11 +353,12 @@ padding: 20px;
   left: 50%;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 15px solid white;
+  border-left: 8px solid transparent;  /* Smaller size */
+  border-right: 8px solid transparent;  /* Smaller size */
+  border-top: 12px solid white;  /* Smaller size */
   transform: translate(-50%, -50%);
 }
+
 
 #left-side-image {
   position: absolute;
@@ -336,3 +381,5 @@ padding: 20px;
 
 
 }
+
+
