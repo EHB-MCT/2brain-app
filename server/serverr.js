@@ -15,27 +15,6 @@ const port = 3001;
 
 app.use(cors());
 
-app.get('/api/ai-news', async (req, res) => {
-  try {
-    const apiKey = '6c918738b950405b9128758f12b5f957';
-    const apiUrl = `https://newsapi.org/v2/everything?q=Artificial%20Intelligence&apiKey=${apiKey}`;
-
-    const response = await axios.get(apiUrl);
-    const articles = response.data.articles;
-    
-    res.json(articles);
-
-  } catch (error) {
-    console.error(error);
-
-    if (error.response && error.response.status === 429) {
-      res.status(429).json({ error: 'Rate limit exceeded' });
-    } else {
-      res.status(500).send('Internal Server Error');
-    }
-  }
-});
-
 app.post('/create-user', async (req, res) => {
 
 
@@ -83,23 +62,23 @@ app.post('/getAdvice', async (req, res) => {
     console.log("User needs promt-3: ", req.body.prompt[0]);
     console.log("User needs promt-4: ", req.body.prompt[1]);
 
-    // const messages = [
-    //   {
-    //     "role": "system",
-    //     "content": "You're an Artificial intelligence program adviser, give 6 apps based on the users needs. answer back with the name, description (Max 3 sentences) en google search link with name after. you're answer will be in a json array called apps,  each app will be returned in a json object containing. name, description and link. "
-    //   },
-    //   {
-    //     "role": "user",
-    //     "content": userNeeds
-    //   },
-    // ];
-    // const temperature = 1;
+    const messages = [
+      {
+        "role": "system",
+        "content": "You're an Artificial intelligence program adviser, give 6 apps based on the users needs. answer back with the name, description (Max 3 sentences) en google search link with name after. you're answer will be in a json array called apps,  each app will be returned in a json object containing. name, description and link. "
+      },
+      {
+        "role": "user",
+        "content": userNeeds
+      },
+    ];
+    const temperature = 1;
 
-    // const response = await getOpenAICompletion(model, messages, temperature);
+    const response = await getOpenAICompletion(model, messages, temperature);
     
-    // console.log("Data from API: ", JSON.stringify(response, null, 2));
-    // const assistantMessage = JSON.parse(response.choices[0].message.content);
-    // console.log("Assistant message: ", assistantMessage);
+    console.log("Data from API: ", JSON.stringify(response, null, 2));
+    const assistantMessage = JSON.parse(response.choices[0].message.content);
+    console.log("Assistant message: ", assistantMessage);
     // const assistantMessage = {
     //   "apps": [
         
@@ -154,28 +133,6 @@ app.post('/getAdvice', async (req, res) => {
 //   .catch(error => {
 //     // Handle the error
 //   });
-
-
-app.get('/api/ai-news', async (req, res) => {
-  try {
-    const apiKey = '6c918738b950405b9128758f12b5f957';
-    const apiUrl = `https://newsapi.org/v2/everything?q=Artificial%20Intelligence&apiKey=${apiKey}`;
-
-    const response = await axios.get(apiUrl);
-    const articles = response.data.articles;
-    
-    res.json(articles);
-
-  } catch (error) {
-    console.error(error);
-
-    if (error.response && error.response.status === 429) {
-      res.status(429).json({ error: 'Rate limit exceeded' });
-    } else {
-      res.status(500).send('Internal Server Error');
-    }
-  }
-});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node test.js",
-    "dev": "nodemon test.js",its 
+    "dev": "nodemon test.js",
     "build": "echo 'Placeholder for server build commands'"
   },
   "dependencies": {
