@@ -4,8 +4,10 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node server/test.js",
-    "client": "cd my-app && npm start"
+    "server": "cd server && npm start",
+    "client": "cd my-app && npm start",
+    "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+    "build-server": "cd server && npm run build",
+    "build-client": "cd my-app && npm run build"
   }
-  
 }
