@@ -128,3 +128,6 @@ dist
 
 #contains personal information
 .env
+
+#contains node modules
+node_modules

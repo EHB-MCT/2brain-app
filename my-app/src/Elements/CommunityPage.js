@@ -83,7 +83,7 @@ const CommunityPage = () => {
   
       <div className="community-container" id="appsForYouSection">
       <h1 className="community-title">Discover the world of AI together</h1>
-      <p className="community-guide">These are the AI programs highlighted by us. Look around for inspiration. </p>
+      <p className="community-guide">These are the AI programs highlighted by us to inspire you and let you discover works of other users </p>
     </div>
  
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/AIMatchPage.css';
 
-import left from '../assets/images/rightB.png';
-import right from '../assets/images/leftB.png';
+import left from '../assets/images/rightBB.png';
+import right from '../assets/images/leftBB.png';
 const cors = require('cors');
 
 

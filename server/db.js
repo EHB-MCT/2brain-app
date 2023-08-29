@@ -14,17 +14,19 @@ const pool = new Pool({
 
 
 const initDb = async () => {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL
-      );
-    `);
+    // await pool.query(`
+    //   CREATE TABLE IF NOT EXISTS users (
+    //     id SERIAL PRIMARY KEY,
+    //     username TEXT NOT NULL,
+    //     email TEXT UNIQUE NOT NULL,
+    //     password TEXT NOT NULL
+    //   );
+    // `);
   };
 
-  
+    initDb();
+
+
 module.exports = {
   query: (text, params) => pool.query(text, params),
 };

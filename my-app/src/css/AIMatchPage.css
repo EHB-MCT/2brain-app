@@ -29,11 +29,6 @@
 }
 
 
-  .questions-container{
-    height: 700px;
-  }
-
-
   
   
   @keyframes fadeIn {
@@ -124,7 +119,7 @@
  .question-container {
   text-align: center;
   margin-bottom: 2rem; 
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   
 }
 
@@ -363,10 +358,10 @@
 #left-side-image {
   position: absolute;
   left: 0;
-  top: 15%;
+  top: 20%;
   z-index: 999; /* Make sure it's on top */
   width: auto; 
-  height: 700px; /* Adjust the height */
+  height: 550px; /* Adjust the height */
 
 
 }
@@ -377,7 +372,7 @@
   top: 20%;
   z-index: 999; /* Make sure it's on top */
   width: auto; 
-  height: 600px; /* Adjust the height */
+  height: 550px; /* Adjust the height */
 
 
 }

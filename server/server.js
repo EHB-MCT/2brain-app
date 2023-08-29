@@ -1,15 +1,36 @@
 const express = require('express');
-const axios = require('axios');
-const app = express();
-const port = 3001;
+const OpenAI = require('openai');
 const cors = require('cors');
+const db = require('./db');
+
+const app = express();
+app.use(express.json());
 app.use(cors());
 
+const apiKey = "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";
+console.log("API Key:", apiKey);
+
+const axios = require('axios');
+const port = 3001;
+
+app.use(cors());
+
+app.post('/create-user', async (req, res) => {
 
 
-app.use(express.json()); // Middleware for parsing JSON data
+  const createUser = async (username, email, password) => {
+    try {
+      const result = await db.query(
+        'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+        [username, email, password]
+      );
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Failed to insert new user: ${error.message}`);
+    }
+  };
+});
 
-// Function to make request to OpenAI API
 async function getOpenAICompletion(model, messages, temperature) {
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -29,100 +50,89 @@ async function getOpenAICompletion(model, messages, temperature) {
   }
 }
 
-app.post('/getCompletion', async (req, res) => {
-  const { model, messages, temperature } = req.body;
-  try {
-    const data = await getOpenAICompletion(model, messages, temperature);
-    res.json(data);
-    console.log("Data from API: ", data);
-    const assistantMessage = data.choices[0].message.content;  
-    console.log("Assistant message: ", assistantMessage);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
-
-app.get('/testCompletion', async (req, res) => {
-  const model = 'gpt-3.5-turbo';
-  const messages = [{ "role": "user", "content": "Say this is a test!" }];
-  const temperature = 0.7;
-
-  try {
-    const data = await getOpenAICompletion(model, messages, temperature);
-    console.log("Data from API: ", JSON.stringify(response.data, null, 2));
-    
-    res.json(data);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
-
 app.post('/getAdvice', async (req, res) => {
   
   try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          "role": "system",
-          "content": "You're an Artificial intelligence program adviser. based on the users info you will find 3 programs or apps that uses Artificial intelligence. \n\nThe user will give you the task he needs to fulfil, the app he usually uses, and also his budget. \n\ngive him 3 apps that uses AI to improve his productivity. \n\nStart by giving the name, and then explain how the app using AI to improve productivity. And if you can find info about the price give it. "
-        },
-        {
-          "role": "user",
-          "content": "I want to create images, I usually use photoshop, and I'm willing to pay 20 a month "
-        },
-      ],
-      temperature: 1,
-      max_tokens: 469,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
+    const model = "gpt-3.5-turbo";
+    
+    const userNeeds = req.body.prompt
+    console.log("User needs: ", userNeeds);
+    console.log("User needs promt: ", req.body);
+    console.log("User needs promt-2: ", req.body.prompt);
+    console.log("User needs promt-3: ", req.body.prompt[0]);
+    console.log("User needs promt-4: ", req.body.prompt[1]);
 
-    console.log("Data from API: ", JSON.stringify(response.data, null, 2));
-    const assistantMessage = response.data.choices[0].message.content;  
+    const messages = [
+      {
+        "role": "system",
+        "content": "You're an Artificial intelligence program adviser, give 6 apps based on the users needs. answer back with the name, description (Max 3 sentences) en google search link with name after. you're answer will be in a json array called apps,  each app will be returned in a json object containing. name, description and link. "
+      },
+      {
+        "role": "user",
+        "content": userNeeds
+      },
+    ];
+    const temperature = 1;
+
+    const response = await getOpenAICompletion(model, messages, temperature);
+    
+    console.log("Data from API: ", JSON.stringify(response, null, 2));
+    const assistantMessage = JSON.parse(response.choices[0].message.content);
     console.log("Assistant message: ", assistantMessage);
+    // const assistantMessage = {
+    //   "apps": [
+        
+    //         {
+    //           name: 'Adobe Illustrator',
+    //           description: 'Adobe Illustrator is a vector graphics editor that can be used to create high-quality video animations and motion graphics. It offers a wide range of tools and features for creating stunning visuals.',
+    //           link: 'https://www.adobe.com/products/illustrator.html'
+    //         },
+    //         {
+    //           name: 'Powtoon',
+    //           description: 'Powtoon is a cloud-based platform that enables users to create animated videos and presentations with ease. It offers a variety of pre-designed templates, characters, and animation effects to make video creation a breeze.',
+    //           link: 'https://www.powtoon.com/'
+    //         },
+    //         {
+    //           name: 'Vyond',
+    //           description: 'Vyond (formerly GoAnimate) is an online video animation tool that allows users to create professional animated videos without the need for advanced design skills. It offers a library of customizable characters, templates, and drag-and-drop features to simplify the video creation process.',
+    //           link: 'https://www.vyond.com/'
+    //         },
+    //         {
+    //           name: 'Animaker',
+    //           description: 'Animaker is a DIY animation software that enables users to create animated videos, infographics, and other visual content. It offers a user-friendly interface, a wide range of pre-animated characters, and a variety of customizable templates to help users bring their ideas to life.',
+    //           link: 'https://www.animaker.com/'
+    //         },
+    //         {
+    //           name: 'Moovly',
+    //           description: 'Moovly is an online video creation platform that allows users to create animated videos, presentations, and other multimedia content. It offers a library of templates, stock images, and audio files, as well as a drag-and-drop interface for easy video editing.',
+    //           link: 'https://www.moovly.com/'
+    //         },
+    //         {
+    //           name: 'Biteable',
+    //           description: 'Biteable is a video maker that enables users to create professional-looking videos using customizable templates, animated scenes, and stock footage. It offers a simple drag-and-drop interface and a library of ready-to-use assets for quick and easy video creation.',
+    //           link: 'https://biteable.com/'
+    //         }
+       
+        
+    //   ]
+    // };
+    
 
-    return response.data;
-
+    res.json({ recommendation: assistantMessage }); 
   } catch (error) { 
     console.error('Error:', error);
     throw new Error(`Failed to retrieve data from API: ${error.message}`);
   }
 });
 
+// // Example of how to call get4 and handle its promise
 
-
-// New function to make the OpenAI request for AI tools recommendation
-async function getAIRecommendation(prompt) {
-  try {
-    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: 'dgpt-3.5-turbo', // Choose the model you'd like to use
-      messages: [{ "role": "user", "content": prompt }],
-      temperature: 0.7
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer YOUR_OPENAI_API_KEY_HERE`
-      }
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error:', error);
-    throw new Error('Internal Server Error');
-  }
-}
-
-// New route to handle the request for AI tools recommendation
-app.post('/api/ai-response', async (req, res) => {
-  const { prompt } = req.body;
-  try {
-    const data = await getAIRecommendation(prompt);
-    res.json(data);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
+//   .then(response => {
+//     console.log("Response from API ehhhhhhhhhh: ", response);
+//   })
+//   .catch(error => {
+//     // Handle the error
+//   });
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -12,6 +12,7 @@ import AIMatchPage from './Elements/AIMatchPage';
 import Header from './Elements/Header';
 import CommunityPage from './Elements/CommunityPage';
 import AppDetailPage from './Elements/AppDetailPage';
+import News from './Elements/NewsPage';
 
 
 
@@ -28,11 +29,11 @@ function App() {
          <Header />
          
       <Routes>
-        <Route path="/" exact element={<HomePage/>} />
         <Route path="/ai-match" element={<AIMatchPage/>} />
         <Route path="/community" element={<CommunityPage/>} />
         <Route path="/app/:id" element={<AppDetailPage/>} />
         <Route path="/about-us" element={<AboutUsPages/>} />
+        <Route path="/news" exact element={<News/>} />
         <Route path="/login" element={<Login/>} />
       </Routes>
     </Router>

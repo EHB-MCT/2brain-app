@@ -21,12 +21,14 @@ const Header = () => {
           <div className="box d-flex align-items-center">
             <div className="d-flex justify-content-end">
               <ul className="navbar-nav">
-         
                 <li className="nav-item">
                   <Link className="nav-link" to="/ai-match">AI Match</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/community">Community</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/news">AI News</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/about-us">About Us</Link>
