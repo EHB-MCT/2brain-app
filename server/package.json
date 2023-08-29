@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node test.js",
-    "dev": "nodemon test.js"
+    "dev": "nodemon test.js",its 
+    "build": "echo 'Placeholder for server build commands'"
   },
   "dependencies": {
     "axios": "^1.4.0",
